@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="btn-wrapper">
+            <router-link :to="`/customers/new`" class="btn btn-primary btn-sm">
+                New
+            </router-link>
+        </div>
         <table class="table">
             <thead>
                 <th>Name</th>
@@ -35,6 +40,9 @@
 <script>
     export default {
         name: "list",
+        mounted() {
+          this.$store.dispatch('getCustomers');
+        },
         computed: {
             customers() {
                 return this.$store.getters.customers;
@@ -44,5 +52,8 @@
 </script>
 
 <style scoped>
-
+.btn-wrapper {
+    text-align: right;
+    margin-bottom: 20px;
+}
 </style>

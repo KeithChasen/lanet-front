@@ -35,6 +35,9 @@ export default {
             localStorage.removeItem('user');
             state.isLoggedIn = false;
             state.currentUser = null;
+        },
+        updateCustomers(state, payload) {
+            state.customers = payload;
         }
     },
     getters: {
@@ -60,6 +63,16 @@ export default {
     actions: {
         login(context) {
             context.commit('login');
+        },
+        getCustomers(context) {
+            axios.get('http://lanet.loc/api/customers', {
+                headers: {
+                    "Authorization": `Bearer ${context.state.currentUser.token}`
+                }
+            })
+            .then((response) => {
+                context.commit('updateCustomers', response.data.customers);
+            })
         }
     },
 }
