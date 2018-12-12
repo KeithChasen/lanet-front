@@ -32,10 +32,15 @@
     export default {
         name: "view",
         created() {
-            axios.get(`http://lanet.loc/api/customers/${this.$route.params.id}`)
-            .then((response) => {
-                this.customer = response.data.customer
-            });
+
+            if (this.customers.length) {
+                this.customer = this.customers.find((customer) => customer.id == this.$route.params.id);
+            } else {
+                axios.get(`http://lanet.loc/api/customers/${this.$route.params.id}`)
+                    .then((response) => {
+                        this.customer = response.data.customer
+                    });
+            }
         },
         data() {
             return {
@@ -45,6 +50,9 @@
         computed: {
             currentUser() {
                 return this.$store.getters.currentUser;
+            },
+            customers() {
+                return this.$store.getters.customers;
             }
         }
     }
