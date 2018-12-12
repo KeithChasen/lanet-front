@@ -32,11 +32,7 @@
     export default {
         name: "view",
         created() {
-            axios.get(`http://lanet.loc/api/customers/${this.$route.params.id}`, {
-                headers: {
-                    "Authorization": `Bearer ${this.currentUser.token}`
-                }
-            })
+            axios.get(`http://lanet.loc/api/customers/${this.$route.params.id}`)
             .then((response) => {
                 this.customer = response.data.customer
             });

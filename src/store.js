@@ -65,11 +65,7 @@ export default {
             context.commit('login');
         },
         getCustomers(context) {
-            axios.get('http://lanet.loc/api/customers', {
-                headers: {
-                    "Authorization": `Bearer ${context.state.currentUser.token}`
-                }
-            })
+            axios.get('http://lanet.loc/api/customers')
             .then((response) => {
                 context.commit('updateCustomers', response.data.customers);
             })

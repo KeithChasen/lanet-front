@@ -71,11 +71,7 @@
                     return;
                 }
 
-                axios.post('http://lanet.loc/api/customers', this.$data.customer, {
-                    headers: {
-                        "Authorization": `Bearer ${this.currentUser.token}`
-                    }
-                })
+                axios.post('http://lanet.loc/api/customers', this.$data.customer)
                 .then((response) => {
                     this.$router.push('/customers');
                 });
