@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import {routes} from "./routes";
 import StoreData from './store'
+import {init} from "./helpers/general";
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -18,24 +19,13 @@ const store = new Vuex.Store(StoreData)
 const router = new VueRouter({
     routes,
     mode: 'history'
-})
+});
+
+init(store, router);
 
 Vue.config.productionTip = false
 
-router.beforeEach((to, from, next) => {
-    const requiresAuth = to.matched.some(
-        record => record.meta.requiresAuth
-    );
-    const currentUser = store.state.currentUser;
 
-    if (requiresAuth && !currentUser) {
-        next('/login');
-    } else if (to.path == '/login' && currentUser) {
-        next('/');
-    } else {
-        next();
-    }
-});
 
 new Vue({
   render: h => h(App),
